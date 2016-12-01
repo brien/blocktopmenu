@@ -2,11 +2,11 @@
  
 if (!defined('_CAN_LOAD_FILES_'))
     exit;
-
+ 
 class BlocktopmenuOverride extends Blocktopmenu
 {
-     protected function generateCategoriesMenu($categories, $is_children = 0)
-     {
+    protected function generateCategoriesMenu($categories, $is_children = 0)
+    {
         $html = '';
 
         foreach ($categories as $key => $category) {
@@ -26,7 +26,7 @@ class BlocktopmenuOverride extends Blocktopmenu
                 && (int)Tools::getValue('id_category') == (int)$category['id_category']) ? ' class="sfHoverForce"' : '').'>';
             $html .= '<a href="'.$link.'" title="'.$category['name'].'">'.$category['name'].'</a>';
 
-            if (isset($category['children']) && !empty($category['children'])) {
+           if ($category['level_depth'] < 3 && isset($category['children']) && !empty($category['children'])) {
                 $html .= '<ul>';
                 $html .= $this->generateCategoriesMenu($category['children'], 1);
 
@@ -58,5 +58,4 @@ class BlocktopmenuOverride extends Blocktopmenu
     }
  
  
-
 }
